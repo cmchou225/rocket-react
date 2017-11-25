@@ -19,7 +19,7 @@ export default class App extends Component {
         const time = lch.timeOfLaunch;
         const confirmed = time !== 'TBD';
         lch.status = confirmed ? 'confirmed' : 'unconfirmed';
-        lch.timeOfLaunch = lch.status ? new Date(time).toTimeString() : time;
+        lch.timeOfLaunch = confirmed ? new Date(time).toTimeString() : time;
         lch.date = new Date(lch.timeOfLaunchRaw).toDateString();
         return lch;  
       })
