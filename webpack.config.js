@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   devtool: 'source-map',
   entry: [
-    __dirname + '/scripts/app.js'
+    __dirname + '/src/js/index.jsx'
   ],
   output: {
       path: __dirname + '/build',
@@ -11,8 +11,9 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.js$/, 
+      { test: /\.jsx?/, 
         exclude: /node_modules/, 
+        include: path.join(__dirname, 'src'),
         use: [
           { loader: "babel-loader" }
         ]
@@ -23,7 +24,8 @@ module.exports = {
           { loader: "style-loader" }, 
           { loader: "css-loader" },
           { loader: "sass-loader" }
-        ]
+        ],
+        include: path.join(__dirname)
       }
     ]
   }
