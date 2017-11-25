@@ -12,7 +12,7 @@ open http://localhost:8080
 ```
 
 ### Dependencies:
-* Angular 1.6
+* React
 * Express
 * Webpack
 * [Babel-loader](https://github.com/babel/babel-loader)
