@@ -3,8 +3,10 @@ import Agency from './Agency.jsx'
 
 
 const Launch = ({agencies, location, rocket, launchId, timeOfLaunch, timeOfLaunchRaw, date, status }) => {
+  let agencyId = 0;
   const allAgencies = agencies.map(agt => {
-    return <Agency name={ agt.name } wiki={ agt.wiki} />
+    agencyId ++;
+    return <Agency key={agencyId} name={ agt.name } wiki={ agt.wiki} />
   });
   const classes = `${status} unconfirmed`;
   return (
