@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
-import Launch from './Launch.jsx';
+import LaunchList from './LaunchList.jsx';
+import FetchError from './FetchError.jsx';
 
 export default class App extends Component {
   constructor(prop) {
     super(prop);
     this.state = {
-      launches: []
+      launches: [],
+      success: false,
+      loading: true
     }
   }
   componentDidMount() {
@@ -20,41 +23,18 @@ export default class App extends Component {
         lch.date = new Date(lch.timeOfLaunchRaw).toDateString();
         return lch;  
       })
-      this.setState({launches: launchesAll});
+      this.setState({launches: launchesAll, success: true, loading: false});
     })
   }
   
   render() {
-    const allLaunches = this.state.launches.map(launch => {
-      return <Launch 
-        key={ launch.launchId}
-        agencies={ launch.agencies }
-        launchId={ launch.launchId }
-        location={ launch.location }
-        rocket={ launch.rocket }
-        timeOfLaunch={ launch.timeOfLaunch }
-        timeOfLaunchRaw={ launch.timeOfLaunchRaw }
-        status={ launch.status }
-        date={ launch.date } />
-    });
-
-    return (
+    const content = this.state.success && !this.state.loading 
+      ? <LaunchList launches={this.state.launches}/> 
+      : <FetchError />
+    return ( 
       <div>
-          <h1 className="title">Infinity and Beyond</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Launch Date</th>
-              <th>Rocket | Configuration </th>
-              <th>Agency</th>
-              <th>Location</th>
-            </tr>
-          </thead>
-          <tbody>
-            { allLaunches }
-          </tbody>
-        </table>
-        </div>
-    );
-  }
+        <h1 className="title">Infinity and Beyond</h1>
+        {this.state.loading ? <h3>Loading </h3> : content}
+      </div>
+    )}
 }
